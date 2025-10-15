@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Wrangler
+.wrangler/
+.dev.vars
+wrangler.toml.local
+
+# Build outputs
+dist/
+.cache/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Prisma (si decides volver a usarlo)
+prisma/dev.db
+prisma/dev.db-journal
+
+# Local SQLite
+*.db
+*.db-journal

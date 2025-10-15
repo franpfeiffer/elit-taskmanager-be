@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: task-manager-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://uu3dhnw6ky7b76edz7i9:ElXafszXzIvHfjd315BYpsMhKQvgOH@bj2o7qzwqbfssywakyr4-postgresql.services.clever-cloud.com:5432/bj2o7qzwqbfssywakyr4?schema=public
+      PORT: 3000
+    volumes:
+      - ./src:/app/src
+      - ./prisma:/app/prisma

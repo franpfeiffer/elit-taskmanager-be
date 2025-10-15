@@ -1,0 +1,12 @@
+name = "elit-taskmanager-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "elit-taskmanager-db"
+database_id = "fa63d249-f4e9-44b3-8876-ee42b3d84c0d"
