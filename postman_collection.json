@@ -1,0 +1,218 @@
+{
+    "info": {
+        "name": "Task Manager API - Elit",
+        "description": "Colección de endpoints para la API de gestión de tareas",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://elit-taskmanager-api.pfeifferf.workers.dev",
+            "type": "string"
+        },
+        {
+            "key": "localUrl",
+            "value": "http://localhost:8787",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health",
+            "item": [
+                {
+                    "name": "Get API Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/",
+                            "host": ["{{baseUrl}}"],
+                            "path": [""]
+                        },
+                        "description": "Obtiene información general de la API"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Tasks",
+            "item": [
+                {
+                    "name": "List All Tasks",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tasks",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tasks"]
+                        },
+                        "description": "Obtiene todas las tareas ordenadas por fecha de creación"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Task by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tasks/:id",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tasks", ":id"],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "{{taskId}}",
+                                    "description": "ID de la tarea"
+                                }
+                            ]
+                        },
+                        "description": "Obtiene una tarea específica por su ID"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Task - Full",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    const response = pm.response.json();",
+                                    "    pm.collectionVariables.set('taskId', response.id);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Completar desafío técnico\",\n  \"description\": \"Implementar API REST con TypeScript y tests\",\n  \"status\": \"PENDING\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tasks",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tasks"]
+                        },
+                        "description": "Crea una nueva tarea con todos los campos"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Task - Minimal",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Tarea simple\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tasks",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tasks"]
+                        },
+                        "description": "Crea una tarea solo con el título requerido"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Task - Status",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"IN_PROGRESS\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tasks/:id",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tasks", ":id"],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "{{taskId}}"
+                                }
+                            ]
+                        },
+                        "description": "Actualiza el estado de una tarea"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Task - Complete",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Tarea actualizada\",\n  \"description\": \"Nueva descripción\",\n  \"status\": \"COMPLETED\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tasks/:id",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tasks", ":id"],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "{{taskId}}"
+                                }
+                            ]
+                        },
+                        "description": "Actualiza todos los campos de una tarea"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Task",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tasks/:id",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tasks", ":id"],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "{{taskId}}"
+                                }
+                            ]
+                        },
+                        "description": "Elimina una tarea permanentemente"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
